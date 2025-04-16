@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telusuri Penawaran - Platform Hiperlokal</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1>Platform Pertukaran Hiperlokal</h1>
+            <nav>
+                <ul>
+                    <li><a href="browse.html" class="active">Telusuri</a></li>
+                    <li><a href="post.html">Buat Postingan</a></li>
+                    <li><a href="profile.html">Profil Saya</a></li>
+                    <li><a href="#" id="logout-btn">Keluar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Telusuri Penawaran & Permintaan</h2>
+
+        <section id="filter-controls" class="filter-section">
+            <h3>Filter</h3>
+            <div class="filter-group">
+                <label for="filter-category">Kategori:</label>
+                <select id="filter-category">
+                    <option value="">Semua</option>
+                    <option value="Perawatan Rumah">Perawatan Rumah</option>
+                    <option value="Teknologi">Teknologi</option>
+                    <option value="Pendidikan">Pendidikan</option>
+                    <option value="Hewan Peliharaan">Hewan Peliharaan</option>
+                    <option value="Peminjaman Barang">Peminjaman Barang</option>
+                    </select>
+            </div>
+            <div class="filter-group">
+                 <label for="filter-keyword">Kata Kunci:</label>
+                 <input type="text" id="filter-keyword" placeholder="Cari skill atau jasa...">
+            </div>
+             <div class="filter-group">
+                 <label for="filter-type">Jenis Postingan:</label>
+                 <select id="filter-type">
+                     <option value="">Semua</option>
+                     <option value="offer">Penawaran Skill</option>
+                     <option value="request">Permintaan Bantuan</option>
+                 </select>
+            </div>
+            <button id="filter-btn" class="btn">Terapkan Filter</button>
+        </section>
+
+        <section id="listings-container">
+            <h3>Hasil Pencarian</h3>
+            <p id="no-listings-msg" class="hidden">Tidak ada postingan yang cocok dengan filter Anda.</p>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Platform Hiperlokal</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

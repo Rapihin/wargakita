@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Postingan - Platform Hiperlokal</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1>Platform Pertukaran Hiperlokal</h1>
+             <nav>
+                <ul>
+                    <li><a href="browse.html">Telusuri</a></li>
+                    <li><a href="post.html" class="active">Buat Postingan</a></li>
+                    <li><a href="profile.html">Profil Saya</a></li>
+                    <li><a href="#" id="logout-btn">Keluar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Buat Penawaran Skill atau Permintaan Bantuan</h2>
+        <form id="post-form">
+            <div class="form-group">
+                <label>Jenis Postingan:</label>
+                <div>
+                    <input type="radio" id="type-offer" name="post-type" value="offer" checked>
+                    <label for="type-offer">Saya Menawarkan Skill/Barang</label>
+                </div>
+                 <div>
+                    <input type="radio" id="type-request" name="post-type" value="request">
+                    <label for="type-request">Saya Membutuhkan Bantuan/Barang</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="post-category">Kategori:</label>
+                <select id="post-category" name="category" required>
+                    <option value="" disabled selected>Pilih Kategori</option>
+                    <option value="Perawatan Rumah">Perawatan Rumah</option>
+                    <option value="Teknologi">Teknologi</option>
+                    <option value="Pendidikan">Pendidikan</option>
+                    <option value="Hewan Peliharaan">Hewan Peliharaan</option>
+                    <option value="Peminjaman Barang">Peminjaman Barang</option>
+                     </select>
+            </div>
+             <div class="form-group">
+                <label for="post-title">Judul Singkat:</label>
+                <input type="text" id="post-title" name="title" required placeholder="Contoh: Jasa Siram Tanaman Hias, Pinjam Tangga Lipat">
+            </div>
+            <div class="form-group">
+                <label for="post-description">Deskripsi Lengkap:</label>
+                <textarea id="post-description" name="description" rows="4" required placeholder="Jelaskan detail penawaran atau permintaan Anda..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="post-availability">Ketersediaan Waktu (Opsional):</label>
+                <input type="text" id="post-availability" name="availability" placeholder="Contoh: Akhir pekan saja, Setiap sore setelah jam 5">
+            </div>
+             <div class="form-group">
+                <label for="post-reward">Imbalan (Simulasi Poin):</label>
+                <input type="number" id="post-reward" name="reward" min="0" value="0">
+                <small>0 Poin berarti ikhlas/barter lain. Sistem poin masih simulasi.</small>
+            </div>
+            <button type="submit" class="btn">Publikasikan Postingan</button>
+        </form>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Platform Hiperlokal</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

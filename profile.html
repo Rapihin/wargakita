@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - Platform Hiperlokal</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1>Platform Pertukaran Hiperlokal</h1>
+             <nav>
+                <ul>
+                    <li><a href="browse.html">Telusuri</a></li>
+                    <li><a href="post.html">Buat Postingan</a></li>
+                    <li><a href="profile.html" class="active">Profil Saya</a></li>
+                    <li><a href="#" id="logout-btn">Keluar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Profil Saya</h2>
+        <section id="user-info" class="profile-section">
+            <h3>Informasi Dasar</h3>
+            <p><strong>Nama:</strong> <span id="profile-name">Memuat...</span></p>
+            <p><strong>Alamat:</strong> <span id="profile-address">Memuat...</span></p>
+            <p><strong>Kontak:</strong> <span id="profile-contact">Memuat...</span></p>
+            <p><strong>Bio Singkat:</strong></p>
+            <textarea id="profile-bio" rows="3" placeholder="Ceritakan sedikit tentang diri Anda atau minat Anda..."></textarea>
+            <button id="save-bio-btn" class="btn btn-small">Simpan Bio</button>
+        </section>
+
+        <section id="skills-offered" class="profile-section">
+            <h3>Skill yang Saya Tawarkan</h3>
+            <ul id="skills-list">
+                <li>Memuat...</li>
+            </ul>
+            <input type="text" id="new-skill-input" placeholder="Tambahkan skill baru...">
+            <button id="add-skill-btn" class="btn btn-small">Tambah Skill</button>
+        </section>
+
+        <section id="needs-interests" class="profile-section">
+            <h3>Kebutuhan/Minat Saya</h3>
+            <ul id="needs-list">
+                <li>Memuat...</li>
+            </ul>
+             <input type="text" id="new-need-input" placeholder="Tambahkan kebutuhan/minat baru...">
+            <button id="add-need-btn" class="btn btn-small">Tambah Kebutuhan</button>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Platform Hiperlokal</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
