@@ -4,19 +4,413 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk atau Daftar - WargaKita</title>
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/forms.css">
-    <link rel="stylesheet" href="css/buttons.css">
-    <link rel="stylesheet" href="css/auth.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/utilities.css">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/heroicons@2.1.3/24/outline/index.min.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/heroicons@2.1.3/24/solid/index.min.js"></script>
 
-</head>
+    <style>
+        /* --- Google Font Import (I. Typography) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+        /* === css/base.css === */
+        :root {
+            /* I. Typography Variables */
+            --font-heading: 'Playfair Display', serif; /* Berani untuk Judul */
+            --font-body: 'Space Grotesk', sans-serif; /* Modern untuk Body/UI */
+            --font-weight-regular: 400;
+            --font-weight-medium: 500; /* Tersedia di Space Grotesk */
+            --font-weight-bold: 700;
+            --font-size-base: 16px; /* Base for rem units */
+            --line-height-heading: 1.2; /* Lebih rapat untuk Playfair Display */
+            --line-height-body: 1.65; /* Sedikit lebih longgar untuk Space Grotesk */
+            --letter-spacing-ui: 0.3px; /* Sedikit spacing untuk UI */
+
+            /* II. Color & Palette Variables */
+            --color-primary: #4A90E2;      /* Biru yang sedikit lebih cerah */
+            --color-accent: #50E3C2;       /* Teal/Mint yang lebih cerah */
+            --color-secondary-accent: #F5A623; /* Oranye untuk highlight sekunder */
+            --color-text-dark: #333333;     /* Hitam pekat untuk kontras tinggi */
+            --color-text-medium: #555555;    /* Abu-abu gelap */
+            --color-text-light: #888888;     /* Abu-abu terang */
+            --color-bg-main: #f8f9fa;       /* Latar belakang off-white */
+            --color-bg-content: #ffffff;
+            --color-border: #e0e0e0;       /* Border yang lebih lembut */
+            --color-border-focus: var(--color-primary);
+            --color-success: #27ae60;       /* Slightly darker Green */
+            --color-error: #c0392b;        /* Slightly darker Red */
+            --color-warning: #f39c12;       /* Slightly darker Yellow */
+            /* Kontras Cek: Pastikan --color-text-dark pada --color-bg-content/main lolos WCAG AA/AAA. */
+            /* Pastikan --color-bg-content pada --color-primary/accent (tombol) lolos WCAG AA. */
+
+            /* III. UI Element Variables */
+            --border-radius: 6px; /* Sedikit lebih membulat */
+            --box-shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --box-shadow-medium: 0 6px 15px rgba(0, 0, 0, 0.08);
+            --box-shadow-focus: 0 0 0 3px rgba(74, 144, 226, 0.2); /* Sesuaikan dengan primary baru */
+
+            /* IV. Microinteraction & Animation Variables */
+            --transition-speed-fast: 0.2s;
+            --transition-speed-normal: 0.3s;
+            --transition-speed-slow: 0.5s;
+            --transition-timing: cubic-bezier(0.25, 0.8, 0.25, 1); /* Transisi lebih halus */
+            --animation-fadein-duration: 0.6s;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            font-size: var(--font-size-base);
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-body); /* Terapkan font body */
+            font-weight: var(--font-weight-regular);
+            line-height: var(--line-height-body);
+            color: var(--color-text-dark);
+            background-color: var(--color-bg-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn var(--animation-fadein-duration) var(--transition-timing) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium); /* Sedikit bold untuk link */
+            transition: color var(--transition-speed-normal) var(--transition-timing);
+        }
+        a:hover { color: var(--color-accent); }
+
+        ul { list-style: none; }
+
+        /* Base Typography */
+        h1, h2 { font-family: var(--font-heading); font-weight: 700; line-height: var(--line-height-heading); }
+        h3, h4, h5, h6 { font-family: var(--font-body); font-weight: var(--font-weight-bold); line-height: var(--line-height-heading); letter-spacing: var(--letter-spacing-ui); }
+
+        h1 { font-size: 3.0rem; margin-bottom: 0.5em; }
+        h2 { font-size: 2.2rem; color: var(--color-primary); margin-bottom: 0.6em; }
+        h3 { font-size: 1.5rem; margin-bottom: 0.7em; }
+        h4 { font-size: 1.2rem; margin-bottom: 0.7em; }
+        p { margin-bottom: 1.5rem; color: var(--color-text-medium); }
+        small, .text-small { font-size: 0.875rem; color: var(--color-text-light); }
+        label { font-weight: var(--font-weight-medium); font-size: 0.9rem; }
+
+        /* === css/layout.css === */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        main { flex-grow: 1; padding-top: 50px; padding-bottom: 70px; }
+        .main-layout { /* Contoh Grid Layout jika diperlukan nanti */
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+        @media (max-width: 992px) { .main-layout { grid-template-columns: 1fr; } }
+
+        /* === css/header.css === */
+        .main-header {
+            background-color: var(--color-bg-content);
+            padding: 15px 0;
+            box-shadow: var(--box-shadow-subtle);
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .logo h1 {
+            font-size: 1.8rem; margin: 0; color: var(--color-primary);
+        }
+        .tagline {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            display: none; /* Sembunyikan di mobile default */
+        }
+        .main-header nav ul { display: flex; gap: 5px; }
+        .main-header nav ul li a {
+            color: var(--color-text-medium);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-weight: var(--font-weight-medium);
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color var(--transition-speed-normal) var(--transition-timing), background-color var(--transition-speed-normal) var(--transition-timing);
+        }
+        .main-header nav ul li a .icon { width: 18px; height: 18px; stroke-width: 1.5; }
+        .main-header nav ul li a:hover {
+            color: var(--color-primary);
+            background-color: rgba(74, 144, 226, 0.08);
+        }
+        .main-header nav ul li a.active {
+            color: var(--color-primary);
+            font-weight: var(--font-weight-bold);
+            background-color: rgba(74, 144, 226, 0.1);
+        }
+        .main-header nav ul li a.active::after { display: none; }
+
+        /* === css/footer.css === */
+        .main-footer {
+            background-color: var(--color-text-dark);
+            color: var(--color-text-light);
+            text-align: center;
+            padding: 30px 0;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+        .main-footer p { margin-bottom: 0; color: var(--color-text-light); }
+
+        /* === css/forms.css === */
+        .form-group { margin-bottom: 25px; position: relative; }
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: var(--color-text-medium);
+            font-weight: var(--font-weight-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .icon-input { width: 16px; height: 16px; stroke-width: 1.5; color: var(--color-text-light); }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-family: var(--font-body);
+            background-color: var(--color-bg-content);
+            color: var(--color-text-dark);
+            transition: border-color var(--transition-speed-normal) var(--transition-timing), box-shadow var(--transition-speed-normal) var(--transition-timing);
+        }
+        .form-group input::placeholder {
+            color: var(--color-text-light);
+            font-weight: var(--font-weight-regular);
+            font-size: 0.95rem;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="password"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-border-focus);
+            box-shadow: var(--box-shadow-focus);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-group select {
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23555555" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Arrow color adjusted */
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 18px;
+            padding-right: 40px;
+            appearance: none; -webkit-appearance: none; -moz-appearance: none;
+        }
+        .form-group small { display: block; margin-top: 8px; font-size: 0.85rem; color: var(--color-text-light); }
+
+        .form-group.is-valid input, .form-group.is-valid select, .form-group.is-valid textarea { border-color: var(--color-success); }
+        .form-group.is-invalid input, .form-group.is-invalid select, .form-group.is-invalid textarea { border-color: var(--color-error); }
+
+        .validation-icon { position: absolute; right: 12px; top: 40px; width: 20px; height: 20px; display: none; }
+        .form-group.is-valid .validation-icon.success { display: block; color: var(--color-success); }
+        .form-group.is-invalid .validation-icon.error { display: block; color: var(--color-error); }
+
+        .error-message { display: block; color: var(--color-error); font-size: 0.85rem; margin-top: 6px; font-weight: var(--font-weight-regular); }
+        .forgot-password-link { text-align: right; margin-top: -10px; margin-bottom: 20px; }
+        .forgot-password-link a { font-size: 0.85rem; font-weight: var(--font-weight-regular); }
+
+        /* === css/buttons.css === */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px 30px; border: none; border-radius: var(--border-radius);
+            cursor: pointer; font-size: 0.9rem; font-weight: var(--font-weight-bold);
+            font-family: var(--font-body); text-align: center; text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all var(--transition-speed-normal) var(--transition-timing);
+            position: relative; overflow: hidden;
+        }
+        .btn .icon { width: 18px; height: 18px; stroke-width: 2; }
+
+        .btn-primary { background-color: var(--color-primary); color: var(--color-bg-content); box-shadow: 0 2px 4px rgba(74, 144, 226, 0.2); }
+        .btn-primary:hover { background-color: #3a82d8; box-shadow: 0 5px 10px rgba(74, 144, 226, 0.3); transform: translateY(-3px); filter: brightness(105%); color: #fff; }
+        .btn-primary:active { transform: translateY(-1px) scale(0.98); box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); background-color: #3071c4; filter: brightness(95%); }
+
+        .btn-accent { background-color: var(--color-accent); color: var(--color-bg-content); box-shadow: 0 2px 4px rgba(80, 227, 194, 0.2); }
+        .btn-accent:hover { background-color: #48d1b3; box-shadow: 0 5px 10px rgba(80, 227, 194, 0.3); transform: translateY(-3px); filter: brightness(105%); color: #fff; }
+        .btn-accent:active { transform: translateY(-1px) scale(0.98); box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); background-color: #41c0a3; filter: brightness(95%); }
+
+        .btn-secondary { background-color: transparent; color: var(--color-primary); border: 1px solid var(--color-border); box-shadow: none; }
+        .btn-secondary:hover { background-color: rgba(74, 144, 226, 0.05); border-color: var(--color-primary); color: var(--color-primary); transform: none; box-shadow: none; }
+        .btn-secondary:active { transform: scale(0.98); background-color: rgba(74, 144, 226, 0.1); border-color: var(--color-primary); }
+
+        .btn-small { padding: 8px 18px; font-size: 0.8rem; letter-spacing: 0.5px; }
+        .btn-full-width { display: flex; width: 100%; }
+
+        .btn.is-loading .spinner { display: inline-block; }
+        .btn.is-loading span:not(.spinner) { opacity: 0; vertical-align: middle; }
+        .btn.is-loading { pointer-events: none; filter: grayscale(50%); }
+
+        .delete-item-btn { /* ... */ }
+
+        /* === css/components.css === */
+        .spinner {
+            width: 18px; height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: var(--color-bg-content);
+            border-radius: 50%; display: inline-block;
+            animation: spin 0.8s linear infinite;
+        }
+        .btn-secondary .spinner { border-color: rgba(0,0,0,0.1); border-top-color: var(--color-primary); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .icon { width: 1em; height: 1em; vertical-align: middle; display: inline-block; }
+
+        /* === css/cards.css === */
+        #listings-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        #listings-container h3 { grid-column: 1 / -1; /* ... */ }
+        .listing-card {
+            background-color: var(--color-bg-content);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow-subtle);
+            transition: transform var(--transition-speed-normal) var(--transition-timing),
+                        box-shadow var(--transition-speed-normal) var(--transition-timing),
+                        border-left-color var(--transition-speed-normal) var(--transition-timing);
+            display: flex; flex-direction: column;
+            overflow: hidden; border-left: 4px solid transparent;
+        }
+        .listing-card:hover { transform: translateY(-5px); box-shadow: var(--box-shadow-medium); border-left-color: var(--color-accent); }
+        .listing-card-image { height: 150px; background-color: var(--color-bg-main); }
+        .listing-card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .listing-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .listing-card-header .category-icon { /* ... (Styling ikon kategori) ... */ }
+        .listing-card h4 {
+            font-family: var(--font-body); font-weight: var(--font-weight-bold);
+            font-size: 1.15rem; color: var(--color-text-dark);
+            margin-bottom: 5px; line-height: 1.3; flex-grow: 1;
+        }
+        .listing-card-body { flex-grow: 1; margin-bottom: 15px; }
+        .listing-card .card-description { font-size: 0.9rem; color: var(--color-text-medium); margin-bottom: 15px; line-height: 1.6; }
+        .listing-card .card-meta {
+            margin-top: auto; padding-top: 15px; border-top: 1px solid var(--color-border);
+            font-size: 0.8rem; color: var(--color-text-light);
+            display: flex; flex-wrap: wrap; gap: 12px;
+        }
+        .listing-card .card-meta span { display: inline-flex; align-items: center; gap: 5px; }
+        .listing-card-footer { text-align: right; padding-top: 15px; }
+        /* Tombol di kartu: Gunakan .btn .btn-small .btn-accent di HTML */
+        #no-listings-msg { grid-column: 1 / -1; /* ... */ }
+
+        /* === css/auth.css === */
+        .auth-page-container { display: flex; justify-content: center; align-items: flex-start; padding-top: 5vh; }
+        .auth-container {
+            background: var(--color-bg-content); padding: 35px;
+            border-radius: var(--border-radius); box-shadow: var(--box-shadow-medium);
+            width: 100%; max-width: 420px; border-top: 4px solid var(--color-primary);
+        }
+        .auth-container h2 { font-family: var(--font-heading); text-align: center; margin-bottom: 25px; }
+        .toggle-auth { text-align: center; margin-top: 20px; font-size: 0.9rem; }
+        .toggle-auth a { color: var(--color-primary); font-weight: var(--font-weight-bold); }
+        .toggle-auth a:hover { color: var(--color-accent); }
+
+        /* === css/profile.css === */
+        .profile-section { /* ... */ border-left: 4px solid var(--color-primary); background-color: var(--color-bg-content); padding: 25px; margin-bottom: 25px; border-radius: var(--border-radius); box-shadow: var(--box-shadow-subtle); border: 1px solid var(--color-border); }
+        .profile-section h3 { color: var(--color-primary); border-bottom: 1px solid var(--color-border); padding-bottom: 10px; font-size: 1.3rem; font-weight: var(--font-weight-bold); letter-spacing: var(--letter-spacing-ui); margin-bottom: 20px; }
+         /* Input dan tombol tambah item di profile */
+        .profile-section .add-item-container { display: flex; gap: 10px; margin-top: 15px; }
+        #new-skill-input, #new-need-input { flex-grow: 1; padding: 10px 15px; border: 1px solid var(--color-border); border-radius: var(--border-radius); }
+        .profile-section .btn-small { margin-left: 0; background-color: var(--color-accent); }
+        .profile-section .btn-small:hover { background-color: #48d1b3; } /* Sesuaikan hover */
+         /* ... (Styling lain untuk profil jika ada) ... */
+
+
+        /* === css/utilities.css === */
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        /* ... (other utilities) ... */
+        .font-light { font-weight: var(--font-weight-light) !important; }
+        .font-regular { font-weight: var(--font-weight-regular) !important; }
+        .font-bold { font-weight: var(--font-weight-bold) !important; }
+
+        /* --- Responsivitas --- */
+        @media (min-width: 768px) { /* Tampilkan tagline di layar lebih besar */
+            .tagline { display: inline-block; }
+        }
+        @media (max-width: 992px) {
+            html { font-size: 15.5px; }
+            h1 { font-size: 2.7rem; } h2 { font-size: 2.0rem; }
+            .main-layout { grid-template-columns: 1fr; gap: 20px; }
+        }
+        @media (max-width: 768px) {
+            html { font-size: 15px; }
+            .container { padding: 0 15px; }
+            main { padding-top: 30px; padding-bottom: 50px; }
+            h1 { font-size: 2.3rem; } h2 { font-size: 1.8rem; }
+
+            .header-container { flex-direction: column; align-items: center; gap: 10px; }
+            .main-header nav ul { justify-content: center; width: 100%; margin-top: 10px; }
+
+            #listings-container { gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+        }
+        @media (max-width: 480px) {
+            html { font-size: 14px; }
+            .container { padding: 0 12px; }
+            h1 { font-size: 2.0rem; } h2 { font-size: 1.6rem; }
+
+            .auth-container { padding: 25px; margin: 20px 10px; box-shadow: var(--box-shadow-subtle); border-top-width: 3px; }
+            .form-group { margin-bottom: 20px; }
+            .form-group input[type="text"], /* ...other inputs... */ { padding: 10px 12px; font-size: 0.95rem; } /* Sedikit kecilkan font input */
+            .btn { padding: 12px 20px; font-size: 0.85rem; }
+
+            #listings-container { grid-template-columns: 1fr; gap: 15px; }
+            .listing-card { padding: 15px; }
+        }
+
+        /* --- Accessibility: Reduce Motion --- */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                animation-delay: -0.01ms !important;
+                transition-delay: -0.01ms !important;
+            }
+            .btn:hover, .listing-card:hover { transform: none; }
+            .btn:active { transform: scale(0.99); }
+            body { animation: none; opacity: 1; }
+        }
+    </style>
+
+    </head>
 <body>
     <header class="main-header">
         <div class="container header-container">
@@ -24,7 +418,7 @@
                 <h1>WargaKita</h1>
              </a>
              <span class="tagline">Menghubungkan warga. Membangun lingkungan.</span>
-        </div>
+             </div>
     </header>
 
     <main class="container auth-page-container">
@@ -33,14 +427,18 @@
             <form id="login-form">
                  <div class="form-group">
                     <label for="login-email">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-input"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-input">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                        </svg>
                         Email/Kontak
                     </label>
                     <input type="email" id="login-email" name="email" required placeholder="Masukkan email Anda">
                  </div>
                  <div class="form-group">
                     <label for="login-password">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-input"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-input">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                         </svg>
                         Password
                     </label>
                     <input type="password" id="login-password" name="password" required placeholder="Masukkan password">
@@ -50,8 +448,7 @@
                  </div>
                  <button type="submit" class="btn btn-primary btn-full-width">
                      Masuk
-                     <span class="spinner hidden"></span>
-                 </button>
+                     <span class="spinner hidden"></span> </button>
             </form>
             <p class="toggle-auth">Belum punya akun? <a href="#" id="show-register">Daftar di sini</a></p>
         </section>
@@ -77,13 +474,12 @@
                  </div>
                  <div id="otp-section" class="form-group hidden">
                     <label for="otp-input">Kode Verifikasi (OTP)</label>
-                    <input type="text" id="otp-input" name="otp" placeholder="Masukkan 6 digit kode">
+                    <input type="text" id="otp-input" name="otp" placeholder="Masukkan 6 digit kode" maxlength="6">
                     <small>Kami telah mengirimkan kode OTP ke <span id="otp-destination"></span> (Simulasi).</small>
                  </div>
                  <button type="submit" class="btn btn-accent btn-full-width">
                      <span id="register-btn-text">Daftar & Verifikasi Alamat</span>
-                     <span class="spinner hidden"></span>
-                 </button>
+                     <span class="spinner hidden"></span> </button>
              </form>
              <p class="toggle-auth">Sudah punya akun? <a href="#" id="show-login">Masuk di sini</a></p>
         </section>
@@ -96,5 +492,5 @@
     </footer>
 
     <script src="js/main.js"></script>
-    </body>
+</body>
 </html>
